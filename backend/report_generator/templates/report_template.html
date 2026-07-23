@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 40px;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #bdc3c7;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #ecf0f1;
+        }
+        .chart-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+        }
+        .summary-box {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>{{ title }}</h1>
+        <p>Generated on: {{ date }}</p>
+    </div>
+
+    <div class="section">
+        <h2>Executive Summary</h2>
+        <div class="summary-box">
+            <p>{{ summary_text }}</p>
+            <p><strong>Total Records Analyzed:</strong> {{ total_records }}</p>
+            <p><strong>Variables Analyzed:</strong> {{ total_variables }}</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Statistical Overview</h2>
+        
+        {% for col, stats in statistics.items() %}
+        <h3>Variable: {{ col }}</h3>
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Count</td>
+                <td>{{ stats.count }}</td>
+            </tr>
+            <tr>
+                <td>Mean</td>
+                <td>{{ "%.2f"|format(stats.mean) if stats.mean else 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td>Median</td>
+                <td>{{ "%.2f"|format(stats.median) if stats.median else 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td>Variance</td>
+                <td>{{ "%.2f"|format(stats.variance) if stats.variance else 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td>Standard Error</td>
+                <td>{{ "%.2f"|format(stats.std_error) if stats.std_error else 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td>Margin of Error (95%)</td>
+                <td>{{ "%.2f"|format(stats.margin_of_error) if stats.margin_of_error else 'N/A' }}</td>
+            </tr>
+            <tr>
+                <td>Confidence Interval (95%)</td>
+                <td>
+                    {% if stats.confidence_interval %}
+                        [{{ "%.2f"|format(stats.confidence_interval[0]) }}, {{ "%.2f"|format(stats.confidence_interval[1]) }}]
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        
+        {% if charts and col in charts %}
+        <div class="chart-container">
+            <img src="data:image/png;base64,{{ charts[col] }}" alt="Chart for {{ col }}">
+        </div>
+        {% endif %}
+        
+        {% endfor %}
+    </div>
+
+    {% if categorical_summary %}
+    <div class="section">
+        <h2>Categorical Variables Summary</h2>
+        {% for col, counts in categorical_summary.items() %}
+        <h3>Variable: {{ col }}</h3>
+        <table>
+            <tr>
+                <th>Category</th>
+                <th>Count</th>
+            </tr>
+            {% for cat, count in counts.items() %}
+            <tr>
+                <td>{{ cat }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</body>
+</html>

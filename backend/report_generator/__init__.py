@@ -1,0 +1,1 @@
+# Initialize Report Generator module
