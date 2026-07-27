@@ -2,6 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 from APIs.survey_routes import router as survey_router
 
@@ -35,3 +39,8 @@ app.include_router(survey_router, prefix="/api", tags=["survey"])
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the SurveyIQ API"}
+
+if __name__ == "__main__":
+    import uvicorn
+    # Allow running server via `python main.py`
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
