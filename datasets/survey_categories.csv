@@ -1,0 +1,16 @@
+Category_ID,Category_Name,Description,Color,Icon
+CAT001,Customer Satisfaction,Measure customer satisfaction and service quality,#3B82F6,Users
+CAT002,Employee Engagement,Assess employee satisfaction and workplace engagement,#10B981,Briefcase
+CAT003,Education,Student feedback and academic performance surveys,#F59E0B,GraduationCap
+CAT004,Healthcare,Patient feedback and healthcare quality assessment,#EF4444,HeartPulse
+CAT005,Market Research,Consumer preferences and market analysis,#8B5CF6,BarChart3
+CAT006,Product Feedback,Collect product reviews and improvement suggestions,#06B6D4,Package
+CAT007,Event Feedback,Evaluate seminars workshops and events,#EC4899,Calendar
+CAT008,Website & UI/UX,Website usability and user experience surveys,#6366F1,Monitor
+CAT009,Training Evaluation,Training program effectiveness assessment,#84CC16,BookOpen
+CAT010,Mental Health,Stress wellbeing and mental health surveys,#14B8A6,Brain
+CAT011,IT Services,IT support and technical service feedback,#0EA5E9,Server
+CAT012,Public Opinion,Government and social opinion surveys,#F97316,Globe
+CAT013,Research Study,Academic and scientific research questionnaires,#A855F7,Microscope
+CAT014,Course Feedback,Course and faculty evaluation surveys,#22C55E,School
+CAT015,Custom Survey,User-defined survey category,#6B7280,Settings
